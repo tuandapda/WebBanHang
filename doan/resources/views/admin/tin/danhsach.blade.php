@@ -1,0 +1,85 @@
+@extends('admin.layout.index')
+@section('title')
+<div class="app-title">
+    <div>
+      <h1><i class="fa fa-th-list"></i>Tin tức</h1>
+      <p>Quản lý tin tức</p>
+    </div>
+    <ul class="app-breadcrumb breadcrumb side">
+      <li class="breadcrumb-item"><i class="fa fa-home fa-lg"></i></li>
+      <li class="breadcrumb-item">Tin Tuc</li>
+      <li class="breadcrumb-item active"><a href="#">Danh Sach</a></li>
+    </ul>
+  </div>   
+@endsection
+@section('conten')
+<div class="row">
+    <div class="col-md-12" style="text-align: right;padding-bottom: 20px;" >
+        <a   href="admin/tin/them"><button class="btn btn-primary" type="button"> + Thêm Mới</button></a>
+    </div>
+    <div class="col-md-12"  >
+        @if(session('thongbao'))
+        <div class="alert alert-success">
+            {{session('thongbao')}}
+        </div>
+        @endif    
+    </div>
+    </div>
+    <div class="col-md-12">
+      <div class="tile">
+        <div class="tile-body">
+          <table class="table table-hover table-bordered" id="sampleTable">
+            <thead>
+                <tr>
+                    <th style="width:100px">Ảnh</th>
+                    <th style="width:100px">Tiêu Dề</th>
+                    <th >Loại Tin</th>
+                    <th >Ngày Tạo</th>
+                    <th >Nội Dung</th>
+                     <th style="text-align:center;width:150px">Tác Vụ</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($tin as $ds)
+                <tr>
+                    <td><img src="/upload/tintuc/{{$ds->Anh}}"style="width:100px;heigth:200px" /></td>
+                    <td>{{$ds->TieuDe}}</td>
+                    <td>{{$ds->LoaiTin_ID}}</td>
+                    <td>{{$ds->NgayCapNhat}}</td>
+                    <td>{{$ds->NoiDung}}</td>
+                    <td>
+                        <a href="admin/tin/sua/{{$ds->ID}}"><button class="btn btn-primary btn-sm" type="button"><i class="fa fa-pencil-square-o" ></i></button></a>
+                        <a href="admin/tin/xoa/{{$ds->ID}}" onclick="return confirm('Bạn có muốn xóa ?')"><button class="btn btn-danger btn-sm" type="button"><i class="fa fa-trash-o"></i></button></a>
+                        <a><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal">
+                            <i class="fa fa-binoculars" ></i>
+                        </button></a>
+                    </td>                            
+                </tr>
+                 @endforeach
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <!-- Button trigger modal -->
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+           ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+@endsection
